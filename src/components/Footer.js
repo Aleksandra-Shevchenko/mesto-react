@@ -1,4 +1,3 @@
-
 function Footer() {
   return (
     <footer className="footer page__center">
@@ -7,5 +6,5 @@ function Footer() {
   )
 }
   
-  export default Footer;
+export default Footer;
   

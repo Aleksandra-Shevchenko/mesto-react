@@ -11,7 +11,6 @@ function Main(props) {
   React.useEffect(() => {
     api.getUserData()
       .then((data) => {
-        console.log(data);
         setUserName(data.name);
         setUserDescription(data.about);
         setUserAvatar(data.avatar);
@@ -20,42 +19,39 @@ function Main(props) {
 
   React.useEffect(() => {
     api.getInitialCards()
-    .then((data) => {
-      console.log(data);
-      const ourCards = data.map((item) => (
-        <Card key={item['_id']} card={item} />
-        )
-      )
-      setCard(ourCards);
-    })
+      .then((data) => {
+        setCard(data);
+      })
   }, []);
 
 
-    return (
-        <main className="container">
-        <section className="profile page__center">
-          <div className="profile__content">
-            <div className="profile__pic">
-              <img src={userAvatar} alt="Аватар пользователя" className="profile__avatar" />
-              <button className="profile__change-btn" type="button" aria-label="Изменить аватар пользователя" onClick={props.onEditAvatar}></button>
-            </div>
-            <div className="profile__info">
-              <div className="profile__row">
-                <h1 className="profile__title">{userName}</h1>
-                <button className="profile__edit-btn" type="button" aria-label="Редактировать профиль" onClick={props.onEditProfile}></button>
-              </div>
-              <p className="profile__subtitle">{userDescription}</p>
-            </div>
+  return (
+    <main className="container">
+      <section className="profile page__center">
+        <div className="profile__content">
+          <div className="profile__pic">
+            <img src={userAvatar} alt="Аватар пользователя" className="profile__avatar" />
+            <button className="profile__change-btn" type="button" aria-label="Изменить аватар пользователя" onClick={props.onEditAvatar}></button>
           </div>
-          <button className="profile__add-btn" type="button" aria-label="Добавить фото" onClick={props.onAddPlace}></button>
-        </section>
+          <div className="profile__info">
+            <div className="profile__row">
+              <h1 className="profile__title">{userName}</h1>
+              <button className="profile__edit-btn" type="button" aria-label="Редактировать профиль" onClick={props.onEditProfile}></button>
+            </div>
+            <p className="profile__subtitle">{userDescription}</p>
+          </div>
+        </div>
+        <button className="profile__add-btn" type="button" aria-label="Добавить фото" onClick={props.onAddPlace}></button>
+      </section>
         
-        <section className="elements page__center" aria-label="Фотографии">
-          <>{cards}</>
-        </section>
-      </main>
-    );
-  }
-  
-  export default Main;
+      <section className="elements page__center" aria-label="Фотографии">
+        {cards.map((item) => (
+          <Card key={item['_id']} card={item} onCardClick={props.onCardClick}/>)
+        )}
+      </section>
+    </main>
+  );
+}
+
+export default Main;
   

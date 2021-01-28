@@ -1,6 +1,5 @@
 import logo from '../images/logo-white.svg';
 
-
 function Header() {
   return (
     <header className="header page__center">
