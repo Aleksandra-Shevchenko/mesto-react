@@ -1,5 +1,7 @@
 import logo from '../images/logo-white.svg';
 
+//--- Компонент шапки сайта ---
+
 function Header() {
   return (
     <header className="header page__center">

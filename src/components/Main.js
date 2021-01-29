@@ -2,6 +2,8 @@ import React from 'react';
 import api from '../utils/Api.js';
 import Card from './Card.js';
 
+//--- Компонент основного контента страницы ---
+
 function Main(props) { 
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
@@ -10,10 +12,13 @@ function Main(props) {
 
   React.useEffect(() => {
     api.getUserData()
-      .then((data) => {
+      .then(data => {
         setUserName(data.name);
         setUserDescription(data.about);
         setUserAvatar(data.avatar);
+      })
+      .catch(err => {
+        console.log(err);
       })
   }, []);
 
@@ -21,6 +26,9 @@ function Main(props) {
     api.getInitialCards()
       .then((data) => {
         setCard(data);
+      })
+      .catch(err => {
+        console.log(err);
       })
   }, []);
 

@@ -1,3 +1,5 @@
+//--- Компонент попапа с картинкой ---
+
 function ImagePopup(props) {
     return (
       <section className={`popup popup_type_image ${props.card.isOpen ? 'popup_opened' : false}`}>

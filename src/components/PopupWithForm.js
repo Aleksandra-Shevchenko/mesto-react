@@ -1,3 +1,4 @@
+//--- Компонент попапов ---
 
 function PopupWithForm(props) {
   return (

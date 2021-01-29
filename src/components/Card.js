@@ -1,5 +1,8 @@
-function Card(props) {
+//--- Компонент карточки с фото ---
 
+function Card(props) {
+  
+  //обработчик клика по карточке
   function handleClick() {
     props.onCardClick(props.card);
   }
