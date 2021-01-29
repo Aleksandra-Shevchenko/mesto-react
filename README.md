@@ -11,7 +11,3 @@
 * реализовано открытие/закрытие попапов,
 * отображение информации о пользователе и карточек с сервера.
 
-
-**Figma:** [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
-
-**Итоговый вид страницы:** [Ссылка на страницу проекта](https://aleksandra-shevchenko.github.io/mesto/index.html)
