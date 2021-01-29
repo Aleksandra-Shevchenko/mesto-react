@@ -1,6 +1,11 @@
 {
   "homepage": "http://Aleksandra-Shevchenko.github.io/mesto-react",
   "name": "mesto-react",
+  "author": {
+    "name": "Aleksandra Shevchenko",
+    "email": "shevdor@yandex.ru"
+  },
+  "description": "interactive application with photos from users",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

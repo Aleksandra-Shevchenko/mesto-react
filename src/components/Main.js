@@ -3,7 +3,6 @@ import api from '../utils/Api.js';
 import Card from './Card.js';
 
 //--- Компонент основного контента страницы ---
-
 function Main(props) { 
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
@@ -39,17 +38,17 @@ function Main(props) {
         <div className="profile__content">
           <div className="profile__pic">
             <img src={userAvatar} alt="Аватар пользователя" className="profile__avatar" />
-            <button className="profile__change-btn" type="button" aria-label="Изменить аватар пользователя" onClick={props.onEditAvatar}></button>
+            <button className="profile__change-btn" type="button" aria-label="Изменить аватар пользователя" onClick={props.onEditAvatar} />
           </div>
           <div className="profile__info">
             <div className="profile__row">
               <h1 className="profile__title">{userName}</h1>
-              <button className="profile__edit-btn" type="button" aria-label="Редактировать профиль" onClick={props.onEditProfile}></button>
+              <button className="profile__edit-btn" type="button" aria-label="Редактировать профиль" onClick={props.onEditProfile} />
             </div>
             <p className="profile__subtitle">{userDescription}</p>
           </div>
         </div>
-        <button className="profile__add-btn" type="button" aria-label="Добавить фото" onClick={props.onAddPlace}></button>
+        <button className="profile__add-btn" type="button" aria-label="Добавить фото" onClick={props.onAddPlace} />
       </section>
         
       <section className="elements page__center" aria-label="Фотографии">

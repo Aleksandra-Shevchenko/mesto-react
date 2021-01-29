@@ -1,5 +1,5 @@
-//--- Компонент подвала сайта ---
 
+//--- Компонент подвала сайта ---
 function Footer() {
   return (
     <footer className="footer page__center">
