@@ -1,11 +1,32 @@
+import React from 'react';
+
 //--- Компонент попапа с картинкой ---
-function ImagePopup(props) {
+function ImagePopup({onClose, card:{isOpen, element:{name, link}}}) {
+
+  //при открытии попапа вешаем слушатель закрытия по ESC
+  React.useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleEscapeClose = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscapeClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscapeClose);
+    };
+  }, [isOpen, onClose]);
+
+
     return (
-      <section className={`popup popup_type_image ${props.card.isOpen ? 'popup_opened' : false}`}>
+      <section className={`popup popup_type_image ${isOpen ? 'popup_opened' : false}`}>
         <div className="popup__container popup__container_type_image">
-          <img className="popup__photo" src={props.card.element.link} alt={`Фото ${props.card.element.name}`} />
-          <h2 className="popup__photo-title">{props.card.element.name}</h2>
-          <button onClick={props.onClose} className="popup__close" type="button" aria-label="Закрыть окно" />
+          <img className="popup__photo" src={link} alt={`Фото ${name}`} />
+          <h2 className="popup__photo-title">{name}</h2>
+          <button onClick={onClose} className="popup__close" type="button" aria-label="Закрыть окно" />
         </div>
       </section>
     )

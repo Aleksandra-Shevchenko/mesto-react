@@ -9,6 +9,7 @@ function Main(props) {
   const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCard] = React.useState([]);
 
+  //при загрузке страницы получаем данные пользователя
   React.useEffect(() => {
     api.getUserData()
       .then(data => {
@@ -21,6 +22,7 @@ function Main(props) {
       })
   }, []);
 
+  //при загрузке страницы получаем данные карточек
   React.useEffect(() => {
     api.getInitialCards()
       .then((data) => {
