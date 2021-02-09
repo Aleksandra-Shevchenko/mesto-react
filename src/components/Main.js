@@ -1,5 +1,5 @@
 import React from 'react';
-// import api from '../utils/api.js';
+import api from '../utils/api.js';
 import Card from './Card.js';
 
 //--- Компонент основного контента страницы ---
