@@ -1,7 +1,7 @@
 import React from 'react';
 
 //--- Компонент попапов ---
-function PopupWithForm({name, title, btnName, isOpen, onClose, children}) {
+function PopupWithForm({name, title, btnName, isOpen, onClose, children, onSubmit}) {
 
   //при открытии попапа вешаем слушатель закрытия по ESC
   React.useEffect(() => {
@@ -24,7 +24,7 @@ function PopupWithForm({name, title, btnName, isOpen, onClose, children}) {
     <section className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : false}`} >
       <div className={`popup__container popup__container_type_${name}`}>
         <h3 className="popup__title">{title}</h3>
-        <form className="popup__form" name={`popup-form-${name}`} noValidate>
+        <form className="popup__form" name={`popup-form-${name}`} noValidate onSubmit={onSubmit}>
           <>{children}</>
           <button className="popup__submit-btn" type="submit">{btnName}</button>
         </form>

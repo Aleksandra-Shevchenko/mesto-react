@@ -60,7 +60,7 @@ class Api {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          avatar: src.link
+          avatar: src,
         })
       })
       .then(res => {
@@ -127,8 +127,40 @@ class Api {
   }
 
   //метод постановки лайка карточке
-  likedCard(cardId) {
-    return fetch(`${this._likesUrl}/${cardId}`, {
+  // likedCard(cardId) {
+  //   return fetch(`${this._likesUrl}/${cardId}`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         authorization: this._token,
+  //       }
+  //     })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       }
+  //       return Promise.reject(`Ошибка: ${res.status}`);
+  //     })
+  // }
+
+  //метод удаления лайка с карточки
+  // dislikedCard(cardId) {
+  //   return fetch(`${this._likesUrl}/${cardId}`, {
+  //       method: 'DELETE',
+  //       headers: {
+  //         authorization: this._token,
+  //       }
+  //     })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       }
+  //       return Promise.reject(`Ошибка: ${res.status}`);
+  //     })
+  // }
+
+  changeLikeCardStatus(cardId, isLiked){
+    if(isLiked){
+      return fetch(`${this._likesUrl}/${cardId}`, {
         method: 'PUT',
         headers: {
           authorization: this._token,
@@ -140,11 +172,8 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-  }
-
-  //метод удаления лайка с карточки
-  dislikedCard(cardId) {
-    return fetch(`${this._likesUrl}/${cardId}`, {
+    } else {
+      return fetch(`${this._likesUrl}/${cardId}`, {
         method: 'DELETE',
         headers: {
           authorization: this._token,
@@ -156,6 +185,7 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
+    }
   }
 }
 
