@@ -126,42 +126,10 @@ class Api {
       })
   }
 
-  //метод постановки лайка карточке
-  // likedCard(cardId) {
-  //   return fetch(`${this._likesUrl}/${cardId}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         authorization: this._token,
-  //       }
-  //     })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //       return Promise.reject(`Ошибка: ${res.status}`);
-  //     })
-  // }
-
-  //метод удаления лайка с карточки
-  // dislikedCard(cardId) {
-  //   return fetch(`${this._likesUrl}/${cardId}`, {
-  //       method: 'DELETE',
-  //       headers: {
-  //         authorization: this._token,
-  //       }
-  //     })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-  //       return Promise.reject(`Ошибка: ${res.status}`);
-  //     })
-  // }
-
-  changeLikeCardStatus(cardId, isLiked){
-    if(isLiked){
+  //метод постановки/удаления лайка на карточке
+  changeLikeCardStatus(cardId, isNotLiked){
       return fetch(`${this._likesUrl}/${cardId}`, {
-        method: 'PUT',
+        method: isNotLiked ? "PUT" : "DELETE",
         headers: {
           authorization: this._token,
         }
@@ -172,20 +140,6 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
       })
-    } else {
-      return fetch(`${this._likesUrl}/${cardId}`, {
-        method: 'DELETE',
-        headers: {
-          authorization: this._token,
-        }
-      })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-    }
   }
 }
 

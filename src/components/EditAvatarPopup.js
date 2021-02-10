@@ -1,16 +1,14 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
-
 //--- Компонент попапа изменения профиля ---
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar}) {
+function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const avatarRef = React.useRef();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    });
+    onUpdateAvatar(avatarRef.current.value);
+    avatarRef.current.value = '';
   } 
   
   return (

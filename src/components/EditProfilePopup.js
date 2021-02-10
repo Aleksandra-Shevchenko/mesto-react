@@ -2,13 +2,20 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
-
 //--- Компонент попапа изменения профиля ---
 function EditProfilePopup({ isOpen, onClose, onUpdateUser}) {
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
   const currentUser = React.useContext(CurrentUserContext);
 
+  //---ЭФФЕКТЫ---
+  //получаем текущие значения для установки в поля попапа
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser]); 
+
+  //---ОБРАБОТЧИКИ---
   function handleChangeName(e) {
     setName(e.target.value);
   }
@@ -19,19 +26,13 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
       name,
       about: description,
     });
   } 
 
-
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]); 
-
+  //---РАЗМЕТКА JSX---
   return (
     <PopupWithForm 
       title='Редактировать профиль'
@@ -47,5 +48,5 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser}) {
   )
 }
     
-  export default EditProfilePopup;
+export default EditProfilePopup;
     

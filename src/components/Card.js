@@ -10,12 +10,13 @@ function Card(props) {
     `element__trash ${isOwn ? 'element__trash_visible' : 'element__trash_hidden'}`
   ); 
 
-
   const isLiked = props.card.likes.some(i => i._id === currentUser._id);
   const cardLikeButtonClassName = (
     `element__like ${isLiked ? 'element__like_active' : ''}`
-  ); 
-  
+  );
+
+
+  //---ОБРАБОТЧИКИ---
   //обработчик клика по карточке
   function handleClick() {
     props.onCardClick(props.card);
@@ -30,7 +31,8 @@ function Card(props) {
   function handleTrashClick() {
     props.onCardDelete(props.card);
   }
-
+  
+  //---РАЗМЕТКА JSX---
   return (
     <article className="element">
       <img  className="element__pic" src={props.card.link} alt={`Фото ${props.card.name}`} onClick={handleClick}/>
