@@ -3,10 +3,11 @@ import PopupWithForm from './PopupWithForm.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
 //--- Компонент попапа изменения профиля ---
-function EditProfilePopup({ isOpen, onClose, onUpdateUser}) {
+function EditProfilePopup({ isOpen, onClose, onUpdateUser, isRender}) {
+  const currentUser = React.useContext(CurrentUserContext);
+
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
-  const currentUser = React.useContext(CurrentUserContext);
 
   //---ЭФФЕКТЫ---
   //получаем текущие значения для установки в поля попапа
@@ -37,7 +38,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser}) {
     <PopupWithForm 
       title='Редактировать профиль'
       name='edit' isOpen={isOpen}
-      btnName='Сохранить'
+      btnName={isRender ? 'Сохранение...' : 'Сохранить'}
       onClose={onClose}
       onSubmit={handleSubmit}>
         <input value={name || ''} onChange={handleChangeName} id="name-input" type="text" placeholder="Имя" className="popup__input popup__input_text_name" name="name" minLength="2" maxLength="40" required />

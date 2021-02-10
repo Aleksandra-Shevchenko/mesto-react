@@ -27,7 +27,7 @@ function Card(props) {
     props.onCardLike(props.card);
   }
 
-  //обработчик клика по кнопке удаления
+  // обработчик клика по кнопке удаления
   function handleTrashClick() {
     props.onCardDelete(props.card);
   }

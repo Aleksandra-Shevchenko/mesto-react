@@ -28,7 +28,12 @@ function Main(props) {
         
       <section className="elements page__center" aria-label="Фотографии">
         {props.cards.map((item) => (
-          <Card key={item['_id']} card={item} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>)
+          <Card
+            key={item['_id']}
+            card={item}
+            onCardClick={props.onCardClick}
+            onCardLike={props.onCardLike}
+            onCardDelete={props.onDeletePlace} />)
         )}
       </section>
     </main>

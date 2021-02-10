@@ -6,10 +6,10 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import ImagePopup from './ImagePopup.js';
-import PopupWithForm from './PopupWithForm.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
+import DeletePlacePopup from './DeletePlacePopup.js';
 
 
 
@@ -22,7 +22,11 @@ function App() {
 
   const [cards, setCards] = React.useState([]);
   const [selectedCard, setSelectedCard] = React.useState({isOpen: false, element: {}});
-  
+  const [selectedCardDeleteConfirm, setSelectedCardDeleteConfirm] = React.useState({isOpen: false, card: {}});
+
+  const[renderSaving, setRenderSaving] = React.useState(false);
+
+
 
   //---ЭФФЕКТЫ---
   //при загрузке страницы получаем данные карточек
@@ -64,15 +68,21 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard({...selectedCard, isOpen: true, element: card});
   }
+  
+  function handleDeletePlaceClick(card) {
+    setSelectedCardDeleteConfirm({...selectedCardDeleteConfirm, isOpen: true, card: card});
+  }
 
   function closeAllPopups() {
     setEditAvatarClick(false);
     setEditProfileClick(false);
     setAddPlaceClick(false);
     setSelectedCard({...selectedCard, isOpen: false});
+    setSelectedCardDeleteConfirm({...selectedCardDeleteConfirm, isOpen: false});
   }
 
   function handleUpdateUser(newUserData) {
+    setRenderSaving(true);
     api.saveUserChanges(newUserData)
       .then((data) => {
         setCurrentUser(data);
@@ -80,10 +90,14 @@ function App() {
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        setRenderSaving(false);
       });
   }
 
   function handleUpdateAvatar(newAvatarLink) {
+    setRenderSaving(true);
     api.changedAvatar(newAvatarLink)
       .then((data) => {
         setCurrentUser({...currentUser, avatar: data.avatar});
@@ -91,10 +105,14 @@ function App() {
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        setRenderSaving(false);
       });
   }
 
   function handleAddPlaceSubmit(cardData) {
+    setRenderSaving(true);
     api.postNewCard(cardData)
       .then((newCard) => {
         setCards([newCard, ...cards]); 
@@ -102,6 +120,9 @@ function App() {
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        setRenderSaving(false);
       });
   }
 
@@ -118,13 +139,18 @@ function App() {
   } 
 
   function handleCardDelete(card) {
+    setRenderSaving(true);
     api.deleteCard(card._id)
       .then(() => {
         const newCards = cards.filter((c) => c._id === card._id ? false : true);
         setCards(newCards);
+        closeAllPopups();
       })
       .catch(err => {
         console.log(err);
+      })
+      .finally(() => {
+        setRenderSaving(false);
       });
   } 
 
@@ -142,24 +168,22 @@ function App() {
       onCardClick={handleCardClick}
       cards={cards}
       onCardLike={handleCardLike}
-      onCardDelete={handleCardDelete}
+      onDeletePlace={handleDeletePlaceClick}
       />
 
       <Footer />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} isRender={renderSaving}/>
 
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/> 
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isRender={renderSaving} /> 
 
-      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/> 
+      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} isRender={renderSaving} />
+
+      <DeletePlacePopup deleteCard={selectedCardDeleteConfirm} onClose={closeAllPopups} onDeleteCard={handleCardDelete} isRender={renderSaving} /> 
            
-      <PopupWithForm
-      title='Вы уверены?'
-      name='confirm'
-      btnName='Да'>
-      </PopupWithForm>          
+             
     </div>
     </CurrentUserContext.Provider>
   );
