@@ -3,24 +3,9 @@ import React from 'react';
 //--- Компонент попапов ---
 function PopupWithForm({ name, title, btnName, isOpen, onClose, children, onSubmit }) {
 
-  //---ЗАКРЫТИЕ ПО ОВЕРЛЕЮ И ESC---
-  React.useEffect(() => {
-    if (!isOpen) return;
-    const handleEscapeClose = (event) => {
-      if (event.key === 'Escape') onClose();
-    };
-
-    document.addEventListener("keydown", handleEscapeClose);
-    return () => document.removeEventListener("keydown", handleEscapeClose);
-  }, [isOpen, onClose]);
-
-  function handleOverlayClickClose(evt) {
-    if (evt.target.classList.contains("popup")) onClose();
-  }
-
   //---РАЗМЕТКА JSX---
   return (
-    <section className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : false}`} onClick={handleOverlayClickClose}>
+    <section className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : false}`}>
       <div className={`popup__container popup__container_type_${name}`}>
         <h3 className={`popup__title popup__title_type_${name}`}>{title}</h3>
         <form className="popup__form" name={`popup-form-${name}`} noValidate onSubmit={onSubmit}>
