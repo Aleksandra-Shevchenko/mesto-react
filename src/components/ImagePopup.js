@@ -1,11 +1,18 @@
 import React from 'react';
-import useEscapeClose from '../hooks/useEscapeClose.js';
 
 //--- Компонент попапа с картинкой ---
 function ImagePopup({ onClose, card:{ isOpen, element:{name, link} } }) {
 
   //---ЗАКРЫТИЕ ПО ОВЕРЛЕЮ И ESC---
-  useEscapeClose(isOpen, onClose);
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const handleEscapeClose = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.addEventListener("keydown", handleEscapeClose);
+    return () => document.removeEventListener("keydown", handleEscapeClose);
+  }, [isOpen, onClose]);
 
   function handleOverlayClickClose(evt) {
     if (evt.target.classList.contains("popup")) onClose();
