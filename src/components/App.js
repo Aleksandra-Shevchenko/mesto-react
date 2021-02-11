@@ -27,7 +27,6 @@ function App() {
   const[renderSaving, setRenderSaving] = React.useState(false);
 
 
-
   //---ЭФФЕКТЫ---
   //при загрузке страницы получаем данные карточек
   React.useEffect(() => {
@@ -81,6 +80,11 @@ function App() {
     setSelectedCardDeleteConfirm({...selectedCardDeleteConfirm, isOpen: false});
   }
 
+  function handleOverlayClickClose(evt) {
+    if (evt.target.classList.contains("popup")) closeAllPopups();
+  }
+
+  //изменение данных пользователя
   function handleUpdateUser(newUserData) {
     setRenderSaving(true);
     api.saveUserChanges(newUserData)
@@ -96,6 +100,7 @@ function App() {
       });
   }
 
+  //изменение аватара пользователя
   function handleUpdateAvatar(newAvatarLink) {
     setRenderSaving(true);
     api.changedAvatar(newAvatarLink)
@@ -111,6 +116,7 @@ function App() {
       });
   }
 
+  //добавление новой карточки
   function handleAddPlaceSubmit(cardData) {
     setRenderSaving(true);
     api.postNewCard(cardData)
@@ -126,6 +132,7 @@ function App() {
       });
   }
 
+  //постановка/снятие лайка
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
@@ -138,6 +145,7 @@ function App() {
       });
   } 
 
+  //удаление карточки
   function handleCardDelete(card) {
     setRenderSaving(true);
     api.deleteCard(card._id)
@@ -162,28 +170,50 @@ function App() {
       <Header />
 
       <Main 
-      onEditProfile={handleEditProfileClick} 
-      onAddPlace={handleAddPlaceClick} 
-      onEditAvatar={handleEditAvatarClick} 
-      onCardClick={handleCardClick}
-      cards={cards}
-      onCardLike={handleCardLike}
-      onDeletePlace={handleDeletePlaceClick}
+        onEditProfile={handleEditProfileClick} 
+        onAddPlace={handleAddPlaceClick} 
+        onEditAvatar={handleEditAvatarClick} 
+        onCardClick={handleCardClick}
+        cards={cards}
+        onCardLike={handleCardLike}
+        onDeletePlace={handleDeletePlaceClick}
       />
 
       <Footer />
 
-      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} onOverlayClose={handleOverlayClickClose} />
 
-      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} isRender={renderSaving}/>
+      <EditProfilePopup 
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+        onOverlayClose={handleOverlayClickClose}
+        onUpdateUser={handleUpdateUser}
+        isRender={renderSaving}
+      />
 
-      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} isRender={renderSaving} /> 
+      <EditAvatarPopup
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+        onOverlayClose={handleOverlayClickClose}
+        onUpdateAvatar={handleUpdateAvatar}
+        isRender={renderSaving}
+      /> 
 
-      <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} isRender={renderSaving} />
+      <AddPlacePopup 
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
+        onOverlayClose={handleOverlayClickClose}
+        onAddPlace={handleAddPlaceSubmit}
+        isRender={renderSaving}
+      />
 
-      <DeletePlacePopup deleteCard={selectedCardDeleteConfirm} onClose={closeAllPopups} onDeleteCard={handleCardDelete} isRender={renderSaving} /> 
-           
-             
+      <DeletePlacePopup
+        deleteCard={selectedCardDeleteConfirm}
+        onClose={closeAllPopups}
+        onOverlayClose={handleOverlayClickClose}
+        onDeleteCard={handleCardDelete}
+        isRender={renderSaving}
+      />     
     </div>
     </CurrentUserContext.Provider>
   );

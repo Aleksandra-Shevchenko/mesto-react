@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 //--- Компонент попапа добавления карточки ---
-function AddPlacePopup({ isOpen, onClose, onAddPlace, isRender}) {
+function AddPlacePopup({ isOpen, onClose, onOverlayClose, onAddPlace, isRender}) {
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
 
@@ -19,7 +19,13 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isRender}) {
   function handleSubmit(e) {
     e.preventDefault();
     onAddPlace({ name, link });
-  } 
+  }
+
+  //---ЭФФЕКТЫ---
+  React.useEffect(() => {
+    setName('');
+    setLink('');
+  }, [isOpen]); 
   
   
   //---РАЗМЕТКА JSX---
@@ -30,6 +36,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isRender}) {
       isOpen={isOpen}
       btnName={isRender ? 'Сохранение...' :'Создать'}
       onClose={onClose}
+      onOverlayClose={onOverlayClose}
       onSubmit={handleSubmit}>
         <input value={name} onChange={handleAddName} id="card-name-input" type="text" placeholder="Название" className="popup__input popup__input_add-card_name" name="name" minLength="2" maxLength="30" required />
         <span id="card-name-input-error" className="popup__input-error"></span>

@@ -2,7 +2,7 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 //--- Компонент попапа добавления карточки ---
-function DeletePlacePopup({ deleteCard:{ isOpen, card }, onClose, onDeleteCard, isRender }) {
+function DeletePlacePopup({ deleteCard:{ isOpen, card }, onClose, onOverlayClose, onDeleteCard, isRender }) {
 
   //---ОБРАБОТЧИКИ---
   function handleSubmit(e) {
@@ -18,6 +18,7 @@ function DeletePlacePopup({ deleteCard:{ isOpen, card }, onClose, onDeleteCard, 
     btnName={isRender ? 'Удаление...' : 'Да'}
     isOpen={isOpen}
     onClose={onClose}
+    onOverlayClose={onOverlayClose}
     onSubmit={handleSubmit}>
     </PopupWithForm>   
   )
