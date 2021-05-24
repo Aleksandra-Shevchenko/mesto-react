@@ -40,9 +40,9 @@
 - [X] реализовать попап подтверждения удаления карточки.
 
 ### Установка и запуск
-`npm i` - установка зависимостей
-`npm run start` - запуск сервера
-`npm run build` - запуск сборки проекта
+`npm i` - установка зависимостей  
+`npm run start` - запуск сервера  
+`npm run build` - запуск сборки проекта  
 
 --------------
 [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4)
