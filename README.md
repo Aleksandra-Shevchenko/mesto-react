@@ -6,7 +6,7 @@
 -----
 
 # "Место" на React
-[**Mesto**](https://aleksandra-shevchenko.github.io/mesto-react/) (открыть проект в браузере)
+[**Mesto-react**](https://aleksandra-shevchenko.github.io/mesto-react/) (открыть проект в браузере)
 
 
 ## Описание проекта
